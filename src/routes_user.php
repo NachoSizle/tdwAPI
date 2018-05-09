@@ -148,8 +148,31 @@ $app->get(
         }
 
         // TODO
-        return $response;
-    }
+        $usuario = getEntityManager()
+            ->getRepository(Usuario::class)
+            ->findBy(array('id' => $args['id']));
+        $this->logger->info(
+            $request->getMethod() . ' ' . $request->getUri()->getPath(),
+            ['uid' => $this->jwt->user_id, 'status' => $usuario ? 200 : 404]
+        );
+
+        return empty($usuario)
+            ? $response
+                ->withJson(
+                    [
+                        'code'      => 404,
+                        'message'   => Messages::MESSAGES['tdw_cget_users_404']
+                    ],
+                    404
+                )
+            : $response
+                ->withJson(
+                    [
+                        'usuario' => $usuario
+                    ],
+                    200
+                );
+        }
 )->setName('tdw_get_users');
 
 /**

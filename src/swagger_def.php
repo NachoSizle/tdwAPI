@@ -11,7 +11,7 @@ use Swagger\Annotations as SWG;
  *
  * @SWG\Swagger(
  *   schemes       = { "http", "https" },
- *   host          = "localhost:8000",
+ *   host          = "localhost:8080",
  *   consumes      = { "application/json" },
  *   produces      = { "application/json" },
  *   basePath      = "/api/v1",

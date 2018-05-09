@@ -44,7 +44,7 @@ Para lanzar el servidor con la aplicación en desarrollo se debe ejecutar el com
 ```
 $ composer start
 ```
-Y realizar una petición con el navegador a la dirección [http://localhost:8000/][lh]
+Y realizar una petición con el navegador a la dirección [http://localhost:8080/][lh]
 
 ####Estructura del proyecto:
 
@@ -102,7 +102,7 @@ el cliente de Swagger.
 [dataMapper]: http://martinfowler.com/eaaCatalog/dataMapper.html
 [doctrine]: http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/
 [jwt]: https://jwt.io/
-[lh]: http://localhost:8000/
+[lh]: http://localhost:8080/
 [monolog]: https://github.com/Seldaek/monolog
 [openapi]: https://www.openapis.org/
 [phpunit]: http://phpunit.de/manual/current/en/index.html
