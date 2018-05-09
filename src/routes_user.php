@@ -66,6 +66,7 @@ $app->get(
         $usuarios = getEntityManager()
             ->getRepository(Usuario::class)
             ->findAll();
+
         $this->logger->info(
             $request->getMethod() . ' ' . $request->getUri()->getPath(),
             ['uid' => $this->jwt->user_id, 'status' => $usuarios ? 200 : 404]
