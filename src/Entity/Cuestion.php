@@ -273,3 +273,125 @@ class Cuestion implements \JsonSerializable
         ];
     }
 }
+
+
+/**
+ * Cuestion definition
+ *
+ * @SWG\Definition(
+ *     definition= "Cuestion",
+ *     required = { "idCuestion" },
+ *     @SWG\Property(
+ *          property    = "idCuestion",
+ *          description = "Question Id",
+ *          type        = "integer",
+ *          format      = "int32"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "enum_descripcion",
+ *          description = "Description question",
+ *          type        = "string"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "enum_disponible",
+ *          description = "Available question",
+ *          type        = "boolean"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "creador",
+ *          description = "Creator",
+ *          type        = "User"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "estado",
+ *          description = "State",
+ *          type        = "string"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "categorias",
+ *          description = "Categories",
+ *          type        = "[Categoria]"
+ *      ),
+ *      example = {
+ *          "cuestion" = {
+ *              "idCuestion"       = 1508,
+ *              "enum_descripcion" = "¿Que es el software?",
+ *              "enum_disponible"    = true,
+ *              "creador"  = "User",
+ *              "estado"  = "Disponible",
+ *              "categorias"    = "[Categoria]"
+ *          }
+ *     }
+ * )
+ *
+ * @SWG\Parameter(
+ *      name        = "questionId",
+ *      in          = "path",
+ *      description = "ID of question",
+ *      required    = true,
+ *      type        = "integer",
+ *      format      = "int32"
+ * )
+ */
+
+/**
+ * Question data definition
+ *
+ * @SWG\Definition(
+ *      definition = "QuestionData",
+ *      @SWG\Property(
+ *          property    = "idCuestion",
+ *          description = "Question ID",
+ *          type        = "string"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "enum_descripcion",
+ *          description = "Description question",
+ *          type        = "string"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "enum_disponible",
+ *          description = "Question available",
+ *          type        = "boolean",
+ *      ),
+ *      @SWG\Property(
+ *          property    = "creador",
+ *          description = "Creator of question",
+ *          type        = "Usuario"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "estado",
+ *          description = "State of question",
+ *          type        = "boolean"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "categorias",
+ *          description = "Array of categories",
+ *          type        = "[Categoria]"
+ *      ),
+ *      example = {
+ *          "username"  = "User_name",
+ *          "email"     = "User_email@example.com",
+ *          "password"  = "User_password",
+ *          "enabled"   = true,
+ *          "isMaestro" = false,
+ *          "isAdmin"   = false
+ *      }
+ * )
+ */
+
+/**
+ * Question array definition
+ *
+ * @SWG\Definition(
+ *     definition = "QuestionsArray",
+ *      @SWG\Property(
+ *          property    = "cuestiones",
+ *          description = "Questions array",
+ *          type        = "array",
+ *          items       = {
+ *              "$ref": "#/definitions/Cuestion"
+ *          }
+ *      )
+ * )
+ */

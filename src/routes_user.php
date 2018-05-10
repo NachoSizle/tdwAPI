@@ -151,7 +151,8 @@ $app->get(
         // TODO
         $usuario = getEntityManager()
             ->getRepository(Usuario::class)
-            ->findBy(array('id' => $args['id']));
+            ->findOneBy(array('id' => $args['id']));
+
         $this->logger->info(
             $request->getMethod() . ' ' . $request->getUri()->getPath(),
             ['uid' => $this->jwt->user_id, 'status' => $usuario ? 200 : 404]
@@ -233,8 +234,40 @@ $app->delete(
         }
 
         // TODO
-        return $response;
-    }
+        $em = getEntityManager();
+
+        $usuario = $em
+            ->getRepository(Usuario::class)
+            ->findOneBy(array('id' => $args['id']));
+
+        $this->logger->info(
+            $request->getMethod() . ' ' . $request->getUri()->getPath(),
+            ['uid' => $this->jwt->user_id, 'status' => $usuario ? 200 : 404]
+        );
+
+        if (!$usuario) {
+            return $response
+                ->withJson(
+                    [
+                        'code'      => 404,
+                        'message'   => Messages::MESSAGES['tdw_delete_users_404']
+                    ],
+                    404
+                );
+        }
+
+        $em -> remove($usuario);
+        $em -> flush();
+
+        return $response
+            ->withJson(
+                [
+                    'code'      => 204,
+                    'message'   => Messages::MESSAGES['tdw_delete_users_204']
+                ],
+                204
+            );
+        }
 )->setName('tdw_delete_users');
 
 /**
@@ -380,7 +413,28 @@ $app->post(
 
         // hay datos -> procesarlos
         // TODO
-        return $response;
+
+        $usuario = new Usuario();
+
+        $usuario->setUsername($req_data['username']);
+        $usuario->setEmail($req_data['email']);
+        $usuario->setPassword($req_data['password']);
+        $usuario->setAdmin($req_data['isAdmin']);
+        $usuario->setEnabled($req_data['enabled']);
+        $usuario->setMaestro($req_data['isMaestro']);
+
+        $em = getEntityManager();
+        $em -> persist($usuario);
+        $em -> flush();
+
+        return $response
+            ->withJson(
+                [
+                    'code' => 201,
+                    'message' => Messages::MESSAGES['tdw_post_user_201']
+                ],
+                201
+            );
     }
 )->setName('tdw_post_users');
 
@@ -456,8 +510,39 @@ $app->put(
             = $request->getParsedBody()
             ?? json_decode($request->getBody(), true);
 
-        // recuperar el usuario
         // TODO
-        return $response;
+        $em = getEntityManager();
+
+        $usuario = $em
+            ->getRepository(Usuario::class)
+            ->findOneBy(array('id' => $args['id']));
+
+        if ($usuario) {
+            $usernameUpdate = ($req_data['username']) ? $req_data['username'] : $usuario->getUsername();
+            $emailUpdate = ($req_data['email']) ? $req_data['email'] : $usuario->getEmail();
+            $passwordUpdate = ($req_data['password']) ? $req_data['password'] : $usuario->getPassword();
+            $isAdminUpdate = ($req_data['isAdmin']) ? $req_data['isAdmin'] : $usuario->isAdmin();
+            $isEnabledUpdate = ($req_data['enabled']) ? $req_data['enabled'] : $usuario->isEnabled();
+            $isMaestroUpdate = ($req_data['isMaestro']) ? $req_data['isMaestro'] : $usuario->isMaestro();
+
+            $usuario->setUsername($usernameUpdate);
+            $usuario->setEmail($emailUpdate);
+            $usuario->setPassword($passwordUpdate);
+            $usuario->setAdmin($isAdminUpdate);
+            $usuario->setEnabled($isEnabledUpdate);
+            $usuario->setMaestro($isMaestroUpdate);
+
+            $em->persist($usuario);
+            $em->flush();
+
+            return $response
+                ->withJson(
+                    [
+                        'code' => 209,
+                        'message' => Messages::MESSAGES['tdw_put_users_209']
+                    ],
+                    209
+                );
+        }
     }
 )->setName('tdw_put_users');

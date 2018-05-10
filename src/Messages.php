@@ -21,6 +21,12 @@ class Messages
         => 'User not found or password does not match',
 
         // users
+        'tdw_post_user_201'
+        => 'User created',
+        'tdw_delete_users_204'
+        => 'User deleted',
+        'tdw_put_users_209'
+        => 'User previously existed and is now updated',
         'tdw_cget_users_403'
         => '`Forbidden` You don\'t have permission to access',
         'tdw_cget_users_404'
@@ -44,6 +50,38 @@ class Messages
         'tdw_put_users_403'
         => '`Forbidden` You don\'t have permission to access',
         'tdw_put_users_404'
+        => 'Resource not found',
+
+        // cuestions
+        'tdw_post_question_201'
+        => 'Question created',
+        'tdw_delete_questions_204'
+        => 'Question deleted',
+        'tdw_put_questions_209'
+        => 'Question previously existed and is now updated',
+        'tdw_cget_questions_403'
+        => '`Forbidden` You don\'t have permission to access',
+        'tdw_cget_questions_404'
+        => 'Question object not found',
+        'tdw_get_questions_403'
+        => '`Forbidden` You don\'t have permission to access',
+        'tdw_get_questions_404'
+        => 'Resource not found',
+        'tdw_delete_questions_403'
+        => '`Forbidden` You don\'t have permission to access',
+        'tdw_delete_questions_404'
+        => 'Resource not found',
+        'tdw_post_questions_400'
+        => '`Bad Request` Username or email already exists.',
+        'tdw_post_questions_403'
+        => '`Forbidden` You don\'t have permission to access',
+        'tdw_post_questions_422'
+        => '`Unprocessable entity` Username, e-mail or password is left out',
+        'tdw_put_questions_400'
+        => '`Bad Request` Question name or e-mail already exists',
+        'tdw_put_questions_403'
+        => '`Forbidden` You don\'t have permission to access',
+        'tdw_put_questions_404'
         => 'Resource not found',
     ];
 }
