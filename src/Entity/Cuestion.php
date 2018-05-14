@@ -340,11 +340,6 @@ class Cuestion implements \JsonSerializable
  * @SWG\Definition(
  *      definition = "QuestionData",
  *      @SWG\Property(
- *          property    = "idCuestion",
- *          description = "Question ID",
- *          type        = "string"
- *      ),
- *      @SWG\Property(
  *          property    = "enum_descripcion",
  *          description = "Description question",
  *          type        = "string"
@@ -359,23 +354,10 @@ class Cuestion implements \JsonSerializable
  *          description = "Creator of question",
  *          type        = "Usuario"
  *      ),
- *      @SWG\Property(
- *          property    = "estado",
- *          description = "State of question",
- *          type        = "boolean"
- *      ),
- *      @SWG\Property(
- *          property    = "categorias",
- *          description = "Array of categories",
- *          type        = "[Categoria]"
- *      ),
  *      example = {
- *          "username"  = "User_name",
- *          "email"     = "User_email@example.com",
- *          "password"  = "User_password",
- *          "enabled"   = true,
- *          "isMaestro" = false,
- *          "isAdmin"   = false
+ *          "enum_descripcion"  = "¿Que es el software?",
+ *          "creador"  = "Creator user id",
+ *          "enum_disponible"     = true
  *      }
  * )
  */

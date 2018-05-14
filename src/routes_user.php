@@ -169,9 +169,7 @@ $app->get(
                 )
             : $response
                 ->withJson(
-                    [
-                        'usuario' => $usuario
-                    ],
+                    $usuario,
                     200
                 );
         }

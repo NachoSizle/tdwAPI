@@ -101,6 +101,156 @@
             "ResultsSecurity": []
           }
         ]
+      },
+      "post": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Creates a new question",
+        "description": "Creates a new question",
+        "operationId": "tdw_post_questions",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "`Question` properties to add to the system",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QuestionData"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "`Created` Question created",
+            "schema": {
+              "$ref": "#/definitions/Cuestion"
+            }
+          },
+          "400": {
+            "description": "`Bad Request` Username or email already exists.",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/401_Standard_Response"
+          },
+          "403": {
+            "$ref": "#/responses/403_Forbidden_Response"
+          },
+          "422": {
+            "description": "`Unprocessable entity` idCuestion is left out",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          }
+        },
+        "security": [
+          {
+            "ResultsSecurity": []
+          }
+        ]
+      },
+      "options": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Provides the list of HTTP supported methods",
+        "description": "Return a `Allow` header with a list of HTTP supported methods.",
+        "operationId": "tdw_options_questions",
+        "responses": {
+          "200": {
+            "description": "`Allow` header <Response body is empty>"
+          }
+        }
+      }
+    },
+    "/questions/{questionId}": {
+      "get": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Returns a question based on a single ID",
+        "description": "Returns the question identified by `questionId`.",
+        "operationId": "tdw_get_questions",
+        "parameters": [
+          {
+            "$ref": "#/parameters/questionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cuestion",
+            "schema": {
+              "$ref": "#/definitions/Cuestion"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/401_Standard_Response"
+          },
+          "403": {
+            "$ref": "#/responses/403_Forbidden_Response"
+          },
+          "404": {
+            "$ref": "#/responses/404_Resource_Not_Found_Response"
+          }
+        },
+        "security": [
+          {
+            "ResultsSecurity": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Deletes a question",
+        "description": "Deletes the question identified by `userId`.",
+        "operationId": "tdw_delete_questions",
+        "parameters": [
+          {
+            "$ref": "#/parameters/questionId"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Question deleted <Response body is empty>"
+          },
+          "401": {
+            "$ref": "#/responses/401_Standard_Response"
+          },
+          "403": {
+            "$ref": "#/responses/403_Forbidden_Response"
+          },
+          "404": {
+            "$ref": "#/responses/404_Resource_Not_Found_Response"
+          }
+        },
+        "security": [
+          {
+            "ResultsSecurity": []
+          }
+        ]
+      },
+      "options": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Provides the list of HTTP supported methods",
+        "description": "Return a `Allow` header with a list of HTTP supported methods.",
+        "operationId": "tdw_options_questions_id",
+        "parameters": [
+          {
+            "$ref": "#/parameters/questionId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "`Allow` header <Response body is empty>"
+          }
+        }
       }
     },
     "/users": {
@@ -381,10 +531,6 @@
     },
     "QuestionData": {
       "properties": {
-        "idCuestion": {
-          "description": "Question ID",
-          "type": "string"
-        },
         "enum_descripcion": {
           "description": "Description question",
           "type": "string"
@@ -396,23 +542,12 @@
         "creador": {
           "description": "Creator of question",
           "type": "Usuario"
-        },
-        "estado": {
-          "description": "State of question",
-          "type": "boolean"
-        },
-        "categorias": {
-          "description": "Array of categories",
-          "type": "[Categoria]"
         }
       },
       "example": {
-        "username": "User_name",
-        "email": "User_email@example.com",
-        "password": "User_password",
-        "enabled": true,
-        "isMaestro": false,
-        "isAdmin": false
+        "enum_descripcion": "\u00bfQue es el software?",
+        "creador": "Creator user id",
+        "enum_disponible": true
       }
     },
     "QuestionsArray": {
