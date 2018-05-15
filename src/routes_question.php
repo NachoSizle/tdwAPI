@@ -13,6 +13,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Swagger\Annotations as SWG;
 use TDW18\Usuarios\Entity\Cuestion;
+use TDW18\Usuarios\Entity\Usuario;
 use TDW18\Usuarios\Messages;
 
 /**
@@ -422,12 +423,27 @@ $app->post(
         // TODO
         $em = getEntityManager();
 
+        $idUser = $req_data['creador'];
+        $enumDesc = $req_data['enum_descripcion'];
+        $enumAvailable = $req_data['enum_disponible'];
+
         $usuarioCreador = $em
             ->getRepository(Usuario::class)
-            ->findOneBy(array('id' => $req_data['creador']));
+            ->findOneBy(array('id' => $idUser));
+
+        if(!$usuarioCreador->isMaestro()) {
+            return $response
+                ->withJson(
+                    [
+                        'code' => 403,
+                        'message' => Messages::MESSAGES['tdw_post_questions_403']
+                    ],
+                    403
+                );
+        }
 
         if($usuarioCreador) {
-            $cuestion = new Cuestion($req_data['enum_descripcion'], $usuarioCreador, $req_data['enum_disponible']);
+            $cuestion = new Cuestion($enumDesc, $usuarioCreador, $enumAvailable);
 
             $em->persist($cuestion);
             $em->flush();
@@ -452,4 +468,161 @@ $app->post(
         }
 
     }
-)->setName('tdw_post_$cuestions');
+)->setName('tdw_post_cuestions');
+
+
+/**
+ * Summary: Updates a question
+ * Notes: Updates the question identified by &#x60;questionId&#x60;.
+ *
+ * @SWG\Put(
+ *     method      = "PUT",
+ *     path        = "/questions/{questionId}",
+ *     tags        = { "Questions" },
+ *     summary     = "Updates a question",
+ *     description = "Updates the question identified by `questionId`.",
+ *     operationId = "tdw_put_questions",
+ *     parameters={
+ *          { "$ref" = "#/parameters/questionId" },
+ *          {
+ *          "name":        "data",
+ *          "in":          "body",
+ *          "description": "`Question` data to update",
+ *          "required":    true,
+ *          "schema":      { "$ref": "#/definitions/QuestionData" }
+ *          }
+ *     },
+ *     security    = {
+ *          { "ResultsSecurity": {} }
+ *     },
+ *     @SWG\Response(
+ *          response    = 209,
+ *          description = "`Content Returned` Question previously existed and is now updated",
+ *          schema      = { "$ref": "#/definitions/Cuestion" }
+ *     ),
+ *     @SWG\Response(
+ *          response    = 400,
+ *          description = "`Bad Request` User name or e-mail already exists",
+ *          schema      = { "$ref": "#/definitions/Message" }
+ *     ),
+ *     @SWG\Response(
+ *          response    = 401,
+ *          ref         = "#/responses/401_Standard_Response"
+ *     ),
+ *     @SWG\Response(
+ *          response    = 403,
+ *          ref         = "#/responses/403_Forbidden_Response"
+ *     ),
+ *     @SWG\Response(
+ *          response    = 404,
+ *          ref         = "#/responses/404_Resource_Not_Found_Response"
+ *     )
+ * )
+ */
+$app->put(
+    $_ENV['RUTA_API'] . '/questions/{id:[0-9]+}',
+    function (Request $request, Response $response, array $args): Response {
+
+        if (!$this->jwt->isAdmin && ($this->jwt->user_id !== $args['id'])) {
+            $this->logger->info(
+                $request->getMethod() . ' ' . $request->getUri()->getPath(),
+                [ 'uid' => $this->jwt->user_id, 'status' => 401 ]
+            );
+
+            return $response
+                ->withJson(
+                    [
+                        'code'      => 401,
+                        'message'   => Messages::MESSAGES['tdw_unauthorized_401']
+                    ],
+                    401
+                );
+        }
+
+        $req_data
+            = $request->getParsedBody()
+            ?? json_decode($request->getBody(), true);
+
+        // TODO
+        $em = getEntityManager();
+
+        $cuestion = $em
+            ->getRepository(Cuestion::class)
+            ->findOneBy(array('idCuestion' => $args['id']));
+
+        if ($cuestion) {
+            $enumDesc = ($req_data['enum_descripcion']) ? $req_data['enum_descripcion'] : $cuestion->getEnunciadoDescripcion();
+            $cuestion->setEnunciadoDescripcion($enumDesc);
+
+            if(isset($req_data['enum_disponible'])) {
+                $enumAvailable = $req_data['enum_disponible'];
+            } else {
+                $enumAvailable = $cuestion->isEnunciadoDisponible();
+            }
+
+            $cuestion->setEnunciadoDisponible($enumAvailable);
+            if ($enumAvailable) {
+                $cuestion->abrirCuestion();
+            } else {
+                $cuestion->cerrarCuestion();
+            }
+
+            if(isset($req_data['creador'])) {
+                $idUser = $req_data['creador'];
+                $usuarioCreador = $em
+                    ->getRepository(Usuario::class)
+                    ->findOneBy(array('id' => $idUser));
+
+                if($usuarioCreador) {
+                    if(!$usuarioCreador->isMaestro()) {
+                        return $response
+                            ->withJson(
+                                [
+                                    'code' => 403,
+                                    'message' => Messages::MESSAGES['tdw_put_questions_403']
+                                ],
+                                403
+                            );
+                    } else {
+                        $cuestion->setCreador($usuarioCreador);
+
+                        $em->flush();
+
+                        return $response
+                            ->withJson(
+                                $cuestion,
+                                209
+                            );
+                    }
+                } else {
+                    return $response
+                        ->withJson(
+                            [
+                                'code'      => 404,
+                                'message'   => Messages::MESSAGES['tdw_put_questions_404']
+                            ],
+                            404
+                        );
+                }
+            } else {
+
+                $em->flush();
+
+                return $response
+                    ->withJson(
+                            $cuestion,
+                        209
+                    );
+            }
+        } else {
+            return $response
+                ->withJson(
+                    [
+                        'code' => 404,
+                        'message' => Messages::MESSAGES['tdw_put_questions_404']
+                    ],
+                    404
+                );
+        }
+    }
+)->setName('tdw_put_questions');

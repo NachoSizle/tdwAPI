@@ -280,7 +280,7 @@ class Cuestion implements \JsonSerializable
  *
  * @SWG\Definition(
  *     definition= "Cuestion",
- *     required = { "idCuestion" },
+ *     required = { "enum_descripcion",  "enum_disponible", "creador"},
  *     @SWG\Property(
  *          property    = "idCuestion",
  *          description = "Question Id",

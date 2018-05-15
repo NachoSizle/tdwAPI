@@ -72,7 +72,7 @@ class Messages
         'tdw_delete_questions_404'
         => 'Resource not found',
         'tdw_post_questions_400'
-        => '`Bad Request` Username or email already exists.',
+        => 'Username or email already exists.',
         'tdw_post_questions_403'
         => '`Forbidden` You don\'t have permission to access',
         'tdw_post_questions_422'

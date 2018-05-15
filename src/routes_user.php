@@ -414,14 +414,48 @@ $app->post(
 
         $usuario = new Usuario();
 
-        $usuario->setUsername($req_data['username']);
-        $usuario->setEmail($req_data['email']);
+        $userName = $req_data['username'];
+        $email = $req_data['email'];
+
+        $em = getEntityManager();
+
+        $usersWithTheSameUserName = $em
+            ->getRepository(Usuario::class)
+            ->findBy(array('username' => $userName));
+
+        if (count($usersWithTheSameUserName) > 0) {
+            return $response
+                ->withJson(
+                    [
+                        'code' => 400,
+                        'message' => Messages::MESSAGES['tdw_post_users_400']
+                    ],
+                    400
+                );
+        }
+
+        $usersWithTheSameEmail = $em
+            ->getRepository(Usuario::class)
+            ->findBy(array('email' => $email));
+
+        if (count($usersWithTheSameEmail) > 0) {
+            return $response
+                ->withJson(
+                    [
+                        'code' => 400,
+                        'message' => Messages::MESSAGES['tdw_post_users_400']
+                    ],
+                    400
+                );
+        }
+
+        $usuario->setUsername($userName);
+        $usuario->setEmail($email);
         $usuario->setPassword($req_data['password']);
         $usuario->setAdmin($req_data['isAdmin']);
         $usuario->setEnabled($req_data['enabled']);
         $usuario->setMaestro($req_data['isMaestro']);
 
-        $em = getEntityManager();
         $em -> persist($usuario);
         $em -> flush();
 
@@ -516,21 +550,63 @@ $app->put(
             ->findOneBy(array('id' => $args['id']));
 
         if ($usuario) {
-            $usernameUpdate = ($req_data['username']) ? $req_data['username'] : $usuario->getUsername();
-            $emailUpdate = ($req_data['email']) ? $req_data['email'] : $usuario->getEmail();
-            $passwordUpdate = ($req_data['password']) ? $req_data['password'] : $usuario->getPassword();
-            $isAdminUpdate = ($req_data['isAdmin']) ? $req_data['isAdmin'] : $usuario->isAdmin();
-            $isEnabledUpdate = ($req_data['enabled']) ? $req_data['enabled'] : $usuario->isEnabled();
-            $isMaestroUpdate = ($req_data['isMaestro']) ? $req_data['isMaestro'] : $usuario->isMaestro();
 
-            $usuario->setUsername($usernameUpdate);
-            $usuario->setEmail($emailUpdate);
-            $usuario->setPassword($passwordUpdate);
-            $usuario->setAdmin($isAdminUpdate);
-            $usuario->setEnabled($isEnabledUpdate);
-            $usuario->setMaestro($isMaestroUpdate);
+            if (isset($req_data['username'])) {
+                $usernameUpdate = $req_data['username'];
+                $usersWithTheSameUserName = $em
+                    ->getRepository(Usuario::class)
+                    ->findBy(array('username' => $usernameUpdate));
 
-            $em->persist($usuario);
+                if (count($usersWithTheSameUserName) > 0) {
+                    return $response
+                        ->withJson(
+                            [
+                                'code' => 400,
+                                'message' => Messages::MESSAGES['tdw_post_users_400']
+                            ],
+                            400
+                        );
+                }
+
+                $usuario->setUsername($usernameUpdate);
+            }
+
+            if (isset($req_data['email'])) {
+                $emailUpdate = $req_data['email'];
+                $usersWithTheSameEmail = $em
+                    ->getRepository(Usuario::class)
+                    ->findBy(array('email' => $emailUpdate));
+
+                if (count($usersWithTheSameEmail) > 0) {
+                    return $response
+                        ->withJson(
+                            [
+                                'code' => 400,
+                                'message' => Messages::MESSAGES['tdw_post_users_400']
+                            ],
+                            400
+                        );
+                }
+
+                $usuario->setEmail($emailUpdate);
+            }
+
+            if (isset($req_data['password'])) {
+                $usuario->setPassword($req_data['password']);
+            }
+
+            if (isset($req_data['isAdmin'])) {
+                $usuario->setAdmin($req_data['isAdmin']);
+            }
+
+            if (isset($req_data['enabled'])) {
+                $usuario->setEnabled($req_data['enabled']);
+            }
+
+            if (isset($req_data['isMaestro'])) {
+                $usuario->setMaestro($req_data['isMaestro']);
+            }
+
             $em->flush();
 
             return $response
@@ -544,3 +620,4 @@ $app->put(
         }
     }
 )->setName('tdw_put_users');
+/*************************************QUE ES EL ERROR 404 EN EL PUT DE USERS?????????????????????????????????*/

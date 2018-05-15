@@ -202,6 +202,56 @@
           }
         ]
       },
+      "put": {
+        "tags": [
+          "Questions"
+        ],
+        "summary": "Updates a question",
+        "description": "Updates the question identified by `questionId`.",
+        "operationId": "tdw_put_questions",
+        "parameters": [
+          {
+            "$ref": "#/parameters/questionId"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "`Question` data to update",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QuestionData"
+            }
+          }
+        ],
+        "responses": {
+          "209": {
+            "description": "`Content Returned` Question previously existed and is now updated",
+            "schema": {
+              "$ref": "#/definitions/Cuestion"
+            }
+          },
+          "400": {
+            "description": "`Bad Request` User name or e-mail already exists",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/401_Standard_Response"
+          },
+          "403": {
+            "$ref": "#/responses/403_Forbidden_Response"
+          },
+          "404": {
+            "$ref": "#/responses/404_Resource_Not_Found_Response"
+          }
+        },
+        "security": [
+          {
+            "ResultsSecurity": []
+          }
+        ]
+      },
       "delete": {
         "tags": [
           "Questions"
@@ -489,7 +539,9 @@
   "definitions": {
     "Cuestion": {
       "required": [
-        "idCuestion"
+        "enum_descripcion",
+        "enum_disponible",
+        "creador"
       ],
       "properties": {
         "idCuestion": {
