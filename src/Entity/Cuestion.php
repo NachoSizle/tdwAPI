@@ -276,10 +276,10 @@ class Cuestion implements \JsonSerializable
 
 
 /**
- * Cuestion definition
+ * Question definition
  *
  * @SWG\Definition(
- *     definition= "Cuestion",
+ *     definition= "Question",
  *     required = { "enum_descripcion",  "enum_disponible", "creador"},
  *     @SWG\Property(
  *          property    = "idCuestion",
@@ -372,7 +372,7 @@ class Cuestion implements \JsonSerializable
  *          description = "Questions array",
  *          type        = "array",
  *          items       = {
- *              "$ref": "#/definitions/Cuestion"
+ *              "$ref": "#/definitions/Question"
  *          }
  *      )
  * )

@@ -111,7 +111,6 @@ class UserApiTest extends BaseTestCase
         self::assertSame(201, $response->getStatusCode());
         self::assertJson((string) $response->getBody());
         $user = json_decode((string) $response->getBody(), true);
-        self::assertNotEquals($user['usuario']['id'], 0);
         self::assertSame($p_data['username'], $user['usuario']['username']);
         self::assertSame($p_data['email'], $user['usuario']['email']);
         self::assertEquals($p_data['isAdmin'], $user['usuario']['admin']);

@@ -83,5 +83,37 @@ class Messages
         => '`Forbidden` You don\'t have permission to access',
         'tdw_put_questions_404'
         => 'Resource not found',
+
+        // categories
+        'tdw_post_category_201'
+        => 'Category created',
+        'tdw_delete_categories_204'
+        => 'Category deleted',
+        'tdw_put_categories_209'
+        => 'Category previously existed and is now updated',
+        'tdw_cget_categories_403'
+        => '`Forbidden` You don\'t have permission to access',
+        'tdw_cget_categories_404'
+        => 'Category object not found',
+        'tdw_get_categories_403'
+        => '`Forbidden` You don\'t have permission to access',
+        'tdw_get_categories_404'
+        => 'Resource not found',
+        'tdw_delete_categories_403'
+        => '`Forbidden` You don\'t have permission to access',
+        'tdw_delete_categories_404'
+        => 'Resource not found',
+        'tdw_post_categories_400'
+        => 'Username or email already exists.',
+        'tdw_post_categories_403'
+        => '`Forbidden` You don\'t have permission to access',
+        'tdw_post_categories_422'
+        => '`Unprocessable entity` Username, e-mail or password is left out',
+        'tdw_put_categories_400'
+        => '`Bad Request` Category name or e-mail already exists',
+        'tdw_put_categories_403'
+        => '`Forbidden` You don\'t have permission to access',
+        'tdw_put_categories_404'
+        => 'Resource not found'
     ];
 }

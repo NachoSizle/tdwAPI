@@ -240,7 +240,7 @@ $app->delete(
 
         $this->logger->info(
             $request->getMethod() . ' ' . $request->getUri()->getPath(),
-            ['uid' => $this->jwt->user_id, 'status' => $usuario ? 200 : 404]
+            ['uid' => $this->jwt->user_id, 'status' => $usuario ? 204 : 404]
         );
 
         if (!$usuario) {
@@ -259,11 +259,11 @@ $app->delete(
 
         return $response
             ->withJson(
-                [
-                    'code'      => 204,
-                    'message'   => Messages::MESSAGES['tdw_delete_users_204']
-                ],
-                204
+                Messages::MESSAGES['tdw_delete_users_204']
+            )
+            ->withStatus(
+                204,
+                Messages::MESSAGES['tdw_delete_users_204']
             );
         }
 )->setName('tdw_delete_users');
@@ -611,12 +611,9 @@ $app->put(
 
             return $response
                 ->withJson(
-                    [
-                        'code' => 209,
-                        'message' => Messages::MESSAGES['tdw_put_users_209']
-                    ],
-                    209
-                );
+                    Messages::MESSAGES['tdw_put_users_209']
+                )
+                ->withStatus(209, Messages::MESSAGES['tdw_put_users_209']);
         }
     }
 )->setName('tdw_put_users');

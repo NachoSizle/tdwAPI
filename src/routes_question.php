@@ -118,7 +118,7 @@ $app->get(
  *     @SWG\Response(
  *          response    = 200,
  *          description = "Cuestion",
- *          schema      = { "$ref": "#/definitions/Cuestion" }
+ *          schema      = { "$ref": "#/definitions/Question" }
  *     ),
  *     @SWG\Response(
  *          response    = 401,
@@ -357,7 +357,7 @@ $app->options(
  *     @SWG\Response(
  *          response    = 201,
  *          description = "`Created` Question created",
- *          schema      = { "$ref": "#/definitions/Cuestion" }
+ *          schema      = { "$ref": "#/definitions/Question" }
  *     ),
  *     @SWG\Response(
  *          response    = 400,
@@ -498,7 +498,7 @@ $app->post(
  *     @SWG\Response(
  *          response    = 209,
  *          description = "`Content Returned` Question previously existed and is now updated",
- *          schema      = { "$ref": "#/definitions/Cuestion" }
+ *          schema      = { "$ref": "#/definitions/Question" }
  *     ),
  *     @SWG\Response(
  *          response    = 400,
@@ -590,9 +590,9 @@ $app->put(
 
                         return $response
                             ->withJson(
-                                $cuestion,
-                                209
-                            );
+                                Messages::MESSAGES['tdw_put_questions_209']
+                            )
+                            ->withStatus(209, Messages::MESSAGES['tdw_put_questions_209']);
                     }
                 } else {
                     return $response
@@ -610,9 +610,9 @@ $app->put(
 
                 return $response
                     ->withJson(
-                            $cuestion,
-                        209
-                    );
+                        Messages::MESSAGES['tdw_put_questions_209']
+                    )
+                    ->withStatus(209, Messages::MESSAGES['tdw_put_questions_209']);
             }
         } else {
             return $response

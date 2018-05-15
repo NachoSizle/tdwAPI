@@ -228,3 +228,91 @@ class Categoria
         ];
     }
 }
+
+
+
+/**
+ * Category definition
+ *
+ * @SWG\Definition(
+ *     definition= "Category",
+ *     required = { "idCategoria" },
+ *     @SWG\Property(
+ *          property    = "idCategoria",
+ *          description = "Question Id",
+ *          type        = "integer",
+ *          format      = "int32"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "prop_descripcion",
+ *          description = "Description question",
+ *          type        = "string"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "enum_disponible",
+ *          description = "Available question",
+ *          type        = "boolean"
+ *      ),
+ *      example = {
+ *          "cuestion" = {
+ *              "idCategoria"       = 1508,
+ *              "prop_descripcion" = "¿Que es el software?",
+ *              "enum_disponible"    = true
+ *          }
+ *     }
+ * )
+ *
+ * @SWG\Parameter(
+ *      name        = "idCategoria",
+ *      in          = "path",
+ *      description = "ID of category",
+ *      required    = true,
+ *      type        = "integer",
+ *      format      = "int32"
+ * )
+ */
+
+/**
+ * Category data definition
+ *
+ * @SWG\Definition(
+ *      definition = "CategoryData",
+ *      @SWG\Property(
+ *          property    = "idCategoria",
+ *          description = "Question Id",
+ *          type        = "integer",
+ *          format      = "int32"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "prop_descripcion",
+ *          description = "Description question",
+ *          type        = "string"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "enum_disponible",
+ *          description = "Available question",
+ *          type        = "boolean"
+ *      ),,
+ *      example = {
+ *          "enum_descripcion"  = "¿Que es el software?",
+ *          "creador"  = "Creator user id",
+ *          "enum_disponible"     = true
+ *      }
+ * )
+ */
+
+/**
+ * Category array definition
+ *
+ * @SWG\Definition(
+ *     definition = "CategoriesArray",
+ *      @SWG\Property(
+ *          property    = "categories",
+ *          description = "Categories array",
+ *          type        = "array",
+ *          items       = {
+ *              "$ref": "#/definitions/Category"
+ *          }
+ *      )
+ * )
+ */
