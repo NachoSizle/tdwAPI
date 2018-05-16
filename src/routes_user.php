@@ -221,13 +221,7 @@ $app->delete(
             );
 
             return $response
-                ->withJson(
-                    [
-                        'code'      => 403,
-                        'message'   => Messages::MESSAGES['tdw_delete_users_403']
-                    ],
-                    403
-                );
+                ->withStatus(403, Messages::MESSAGES['tdw_delete_users_403']);
         }
 
         $em = getEntityManager();
@@ -243,24 +237,15 @@ $app->delete(
 
         if (!$usuario) {
             return $response
-                ->withJson(
-                    [
-                        'code'      => 404,
-                        'message'   => Messages::MESSAGES['tdw_delete_users_404']
-                    ],
-                    404
-                );
+                ->withStatus(404, Messages::MESSAGES['tdw_delete_users_404']);
         }
 
         $em -> remove($usuario);
         $em -> flush();
 
         return $response
-            ->withStatus(
-                204,
-                Messages::MESSAGES['tdw_delete_users_204']
-            );
-        }
+            ->withStatus(204, Messages::MESSAGES['tdw_delete_users_204']);
+    }
 )->setName('tdw_delete_users');
 
 /**
@@ -417,13 +402,7 @@ $app->post(
 
         if (count($usersWithTheSameUserName) > 0) {
             return $response
-                ->withJson(
-                    [
-                        'code' => 400,
-                        'message' => Messages::MESSAGES['tdw_post_users_400']
-                    ],
-                    400
-                );
+                ->withStatus(400, Messages::MESSAGES['tdw_post_users_400']);
         }
 
         $usersWithTheSameEmail = $em
@@ -432,13 +411,7 @@ $app->post(
 
         if (count($usersWithTheSameEmail) > 0) {
             return $response
-                ->withJson(
-                    [
-                        'code' => 400,
-                        'message' => Messages::MESSAGES['tdw_post_users_400']
-                    ],
-                    400
-                );
+                ->withStatus(400, Messages::MESSAGES['tdw_post_users_400']);
         }
 
         $usuario->setUsername($userName);
@@ -563,13 +536,8 @@ $app->put(
 
                 if (count($usersWithTheSameUserName) > 0) {
                     return $response
-                        ->withJson(
-                            [
-                                'code' => 400,
-                                'message' => Messages::MESSAGES['tdw_put_users_400']
-                            ],
-                            400
-                        );
+                        ->withStatus(400, Messages::MESSAGES['tdw_put_users_400']);
+
                 }
 
                 $usuario->setUsername($usernameUpdate);
@@ -583,13 +551,7 @@ $app->put(
 
                 if (count($usersWithTheSameEmail) > 0) {
                     return $response
-                        ->withJson(
-                            [
-                                'code' => 400,
-                                'message' => Messages::MESSAGES['tdw_put_users_400']
-                            ],
-                            400
-                        );
+                        ->withStatus(400, Messages::MESSAGES['tdw_put_users_400']);
                 }
 
                 $usuario->setEmail($emailUpdate);
@@ -620,14 +582,7 @@ $app->put(
                 ->withStatus(209, Messages::MESSAGES['tdw_put_users_209']);
         } else {
             return $response
-                ->withJson(
-                    [
-                        'code' => 404,
-                        'message' => Messages::MESSAGES['tdw_put_users_404']
-                    ],
-                    404
-                );
+                ->withStatus(404, Messages::MESSAGES['tdw_put_users_404']);
         }
     }
 )->setName('tdw_put_users');
-/*************************************QUE ES EL ERROR 404 EN EL PUT DE USERS?????????????????????????????????*/

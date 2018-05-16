@@ -242,7 +242,7 @@ $app->delete(
 
         $question = $em
             ->getRepository(Cuestion::class)
-            ->findOneBy(array('idQuestion' => $args['id']));
+            ->findOneBy(array('idCuestion' => $args['id']));
 
         $this->logger->info(
             $request->getMethod() . ' ' . $request->getUri()->getPath(),
@@ -264,13 +264,7 @@ $app->delete(
         $em -> flush();
 
         return $response
-            ->withJson(
-                [
-                    'code'      => 204,
-                    'message'   => Messages::MESSAGES['tdw_delete_questions_204']
-                ],
-                204
-            );
+            ->withStatus(204, Messages::MESSAGES['tdw_delete_questions_204']);
     }
 )->setName('tdw_delete_questions');
 
