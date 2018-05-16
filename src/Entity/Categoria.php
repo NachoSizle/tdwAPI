@@ -229,8 +229,6 @@ class Categoria
     }
 }
 
-
-
 /**
  * Category definition
  *
@@ -245,18 +243,18 @@ class Categoria
  *      ),
  *      @SWG\Property(
  *          property    = "prop_descripcion",
- *          description = "Description question",
+ *          description = "Description of category",
  *          type        = "string"
  *      ),
  *      @SWG\Property(
  *          property    = "enum_disponible",
- *          description = "Available question",
+ *          description = "Available category",
  *          type        = "boolean"
  *      ),
  *      example = {
- *          "cuestion" = {
+ *          "categoria" = {
  *              "idCategoria"       = 1508,
- *              "prop_descripcion" = "¿Que es el software?",
+ *              "prop_descripcion" = "Software",
  *              "enum_disponible"    = true
  *          }
  *     }
@@ -279,23 +277,22 @@ class Categoria
  *      definition = "CategoryData",
  *      @SWG\Property(
  *          property    = "idCategoria",
- *          description = "Question Id",
+ *          description = "Category Id",
  *          type        = "integer",
  *          format      = "int32"
  *      ),
  *      @SWG\Property(
  *          property    = "prop_descripcion",
- *          description = "Description question",
+ *          description = "Description of category",
  *          type        = "string"
  *      ),
  *      @SWG\Property(
  *          property    = "enum_disponible",
- *          description = "Available question",
+ *          description = "Available category",
  *          type        = "boolean"
- *      ),,
+ *      ),
  *      example = {
- *          "enum_descripcion"  = "¿Que es el software?",
- *          "creador"  = "Creator user id",
+ *          "prop_descripcion"  = "Software",
  *          "enum_disponible"     = true
  *      }
  * )

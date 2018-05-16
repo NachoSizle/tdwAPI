@@ -72,13 +72,13 @@ class Messages
         'tdw_delete_questions_404'
         => 'Resource not found',
         'tdw_post_questions_400'
-        => 'Username or email already exists.',
+        => 'Question already exists.',
         'tdw_post_questions_403'
         => '`Forbidden` You don\'t have permission to access',
         'tdw_post_questions_422'
-        => '`Unprocessable entity` Username, e-mail or password is left out',
+        => '`Unprocessable entity`',
         'tdw_put_questions_400'
-        => '`Bad Request` Question name or e-mail already exists',
+        => '`Bad Request` Question already exists',
         'tdw_put_questions_403'
         => '`Forbidden` You don\'t have permission to access',
         'tdw_put_questions_404'
@@ -104,13 +104,13 @@ class Messages
         'tdw_delete_categories_404'
         => 'Resource not found',
         'tdw_post_categories_400'
-        => 'Username or email already exists.',
+        => 'Category with this name already exists.',
         'tdw_post_categories_403'
         => '`Forbidden` You don\'t have permission to access',
         'tdw_post_categories_422'
-        => '`Unprocessable entity` Username, e-mail or password is left out',
+        => '`Unprocessable entity` Category name is left out',
         'tdw_put_categories_400'
-        => '`Bad Request` Category name or e-mail already exists',
+        => '`Bad Request` Category name already exists',
         'tdw_put_categories_403'
         => '`Forbidden` You don\'t have permission to access',
         'tdw_put_categories_404'

@@ -101,6 +101,208 @@
             "ResultsSecurity": []
           }
         ]
+      },
+      "post": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Creates a new categories",
+        "description": "Creates a new categories",
+        "operationId": "tdw_post_categories",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "description": "`Categories` properties to add to the system",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CategoryData"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "`Created` Category created",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "400": {
+            "description": "`Bad Request`",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/401_Standard_Response"
+          },
+          "403": {
+            "$ref": "#/responses/403_Forbidden_Response"
+          },
+          "422": {
+            "description": "`Unprocessable entity`",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          }
+        },
+        "security": [
+          {
+            "ResultsSecurity": []
+          }
+        ]
+      },
+      "options": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Provides the list of HTTP supported methods",
+        "description": "Return a `Allow` header with a list of HTTP supported methods.",
+        "operationId": "tdw_options_categories",
+        "responses": {
+          "200": {
+            "description": "`Allow` header <Response body is empty>"
+          }
+        }
+      }
+    },
+    "/categories/{idCategoria}": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Returns a category based on a single ID",
+        "description": "Returns the category identified by `idCategoria`.",
+        "operationId": "tdw_get_categories",
+        "parameters": [
+          {
+            "$ref": "#/parameters/idCategoria"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/401_Standard_Response"
+          },
+          "403": {
+            "$ref": "#/responses/403_Forbidden_Response"
+          },
+          "404": {
+            "$ref": "#/responses/404_Resource_Not_Found_Response"
+          }
+        },
+        "security": [
+          {
+            "ResultsSecurity": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Updates a category",
+        "description": "Updates the category identified by `idCategoria`.",
+        "operationId": "tdw_put_categories",
+        "parameters": [
+          {
+            "$ref": "#/parameters/idCategoria"
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "description": "`Category` data to update",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CategoryData"
+            }
+          }
+        ],
+        "responses": {
+          "209": {
+            "description": "`Content Returned` Category previously existed and is now updated",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "400": {
+            "description": "`Bad Request` Category already exists",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/401_Standard_Response"
+          },
+          "403": {
+            "$ref": "#/responses/403_Forbidden_Response"
+          },
+          "404": {
+            "$ref": "#/responses/404_Resource_Not_Found_Response"
+          }
+        },
+        "security": [
+          {
+            "ResultsSecurity": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Deletes a category",
+        "description": "Deletes the category identified by `idCategoria`.",
+        "operationId": "tdw_delete_categories",
+        "parameters": [
+          {
+            "$ref": "#/parameters/idCategoria"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Category deleted <Response body is empty>"
+          },
+          "401": {
+            "$ref": "#/responses/401_Standard_Response"
+          },
+          "403": {
+            "$ref": "#/responses/403_Forbidden_Response"
+          },
+          "404": {
+            "$ref": "#/responses/404_Resource_Not_Found_Response"
+          }
+        },
+        "security": [
+          {
+            "ResultsSecurity": []
+          }
+        ]
+      }
+    },
+    "/categories/{userId}": {
+      "options": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Provides the list of HTTP supported methods",
+        "description": "Return a `Allow` header with a list of HTTP supported methods.",
+        "operationId": "tdw_options_categories_id",
+        "parameters": [
+          {
+            "$ref": "#/parameters/idCategoria"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "`Allow` header <Response body is empty>"
+          }
+        }
       }
     },
     "/questions": {
@@ -580,20 +782,41 @@
           "format": "int32"
         },
         "prop_descripcion": {
-          "description": "Description question",
+          "description": "Description of category",
           "type": "string"
         },
         "enum_disponible": {
-          "description": "Available question",
+          "description": "Available category",
           "type": "boolean"
         }
       },
       "example": {
-        "cuestion": {
+        "categoria": {
           "idCategoria": 1508,
-          "prop_descripcion": "\u00bfQue es el software?",
+          "prop_descripcion": "Software",
           "enum_disponible": true
         }
+      }
+    },
+    "CategoryData": {
+      "properties": {
+        "idCategoria": {
+          "description": "Category Id",
+          "type": "integer",
+          "format": "int32"
+        },
+        "prop_descripcion": {
+          "description": "Description of category",
+          "type": "string"
+        },
+        "enum_disponible": {
+          "description": "Available category",
+          "type": "boolean"
+        }
+      },
+      "example": {
+        "prop_descripcion": "Software",
+        "enum_disponible": true
       }
     },
     "CategoriesArray": {
@@ -668,7 +891,7 @@
       },
       "example": {
         "enum_descripcion": "\u00bfQue es el software?",
-        "creador": "Creator user id",
+        "creador": 1,
         "enum_disponible": true
       }
     },

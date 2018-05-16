@@ -158,7 +158,7 @@ $app->get(
         // TODO
         $cuestion = getEntityManager()
             ->getRepository(Cuestion::class)
-            ->findOneBy(array('questionId' => $args['id']));
+            ->findOneBy(array('idCuestion' => $args['id']));
 
         $this->logger->info(
             $request->getMethod() . ' ' . $request->getUri()->getPath(),

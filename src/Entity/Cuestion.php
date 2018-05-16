@@ -356,7 +356,7 @@ class Cuestion implements \JsonSerializable
  *      ),
  *      example = {
  *          "enum_descripcion"  = "¿Que es el software?",
- *          "creador"  = "Creator user id",
+ *          "creador"  = 1,
  *          "enum_disponible"     = true
  *      }
  * )
