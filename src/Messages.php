@@ -34,23 +34,23 @@ class Messages
         'tdw_get_users_403'
         => '`Forbidden` You don\'t have permission to access',
         'tdw_get_users_404'
-        => 'Resource not found',
+        => 'User object not found',
         'tdw_delete_users_403'
         => '`Forbidden` You don\'t have permission to access',
         'tdw_delete_users_404'
         => 'Resource not found',
         'tdw_post_users_400'
-        => '`Bad Request` Username or email already exists.',
+        => '`Bad Request` User name or e-mail already exists',
         'tdw_post_users_403'
         => '`Forbidden` You don\'t have permission to access',
         'tdw_post_users_422'
-        => '`Unprocessable entity` Username, e-mail or password is left out',
+        => '`Unprocessable entity` User name, e-mail or password is left out',
         'tdw_put_users_400'
         => '`Bad Request` User name or e-mail already exists',
         'tdw_put_users_403'
         => '`Forbidden` You don\'t have permission to access',
         'tdw_put_users_404'
-        => 'Resource not found',
+        => 'User not found',
 
         // cuestions
         'tdw_post_question_201'

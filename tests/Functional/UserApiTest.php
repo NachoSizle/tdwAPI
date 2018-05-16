@@ -107,7 +107,6 @@ class UserApiTest extends BaseTestCase
             $_ENV['ADMIN_USER_PASSWD']
         );
         $response = $this->runApp('POST', self::$ruta_base, $p_data, $token);
-
         self::assertSame(201, $response->getStatusCode());
         self::assertJson((string) $response->getBody());
         $user = json_decode((string) $response->getBody(), true);
@@ -650,6 +649,8 @@ class UserApiTest extends BaseTestCase
             $p_data,
             $this->getTokenHeaders()
         );
+
+
         self::assertSame(201, $response->getStatusCode());
         self::assertJson((string) $response->getBody());
         $user = json_decode((string) $response->getBody(), true);

@@ -258,9 +258,6 @@ $app->delete(
         $em -> flush();
 
         return $response
-            ->withJson(
-                Messages::MESSAGES['tdw_delete_users_204']
-            )
             ->withStatus(
                 204,
                 Messages::MESSAGES['tdw_delete_users_204']
@@ -452,21 +449,34 @@ $app->post(
         $usuario->setUsername($userName);
         $usuario->setEmail($email);
         $usuario->setPassword($req_data['password']);
-        $usuario->setAdmin($req_data['isAdmin']);
-        $usuario->setEnabled($req_data['enabled']);
-        $usuario->setMaestro($req_data['isMaestro']);
+
+        if(isset($req_data['isAdmin'])) {
+            $usuario->setAdmin($req_data['isAdmin']);
+        } else {
+            $usuario->setAdmin(false);
+        }
+
+        if(isset($req_data['enabled'])) {
+            $usuario->setEnabled($req_data['enabled']);
+        } else {
+            $usuario->setEnabled(false);
+        }
+
+        if(isset($req_data['isMaestro'])) {
+            $usuario->setMaestro($req_data['isMaestro']);
+        } else {
+            $usuario->setMaestro(false);
+        }
 
         $em -> persist($usuario);
         $em -> flush();
 
         return $response
             ->withJson(
-                [
-                    'code' => 201,
-                    'message' => Messages::MESSAGES['tdw_post_user_201']
-                ],
+                $usuario,
                 201
-            );
+            )
+            ->withStatus(201, Messages::MESSAGES['tdw_post_user_201']);
     }
 )->setName('tdw_post_users');
 
@@ -562,7 +572,7 @@ $app->put(
                         ->withJson(
                             [
                                 'code' => 400,
-                                'message' => Messages::MESSAGES['tdw_post_users_400']
+                                'message' => Messages::MESSAGES['tdw_put_users_400']
                             ],
                             400
                         );
@@ -582,7 +592,7 @@ $app->put(
                         ->withJson(
                             [
                                 'code' => 400,
-                                'message' => Messages::MESSAGES['tdw_post_users_400']
+                                'message' => Messages::MESSAGES['tdw_put_users_400']
                             ],
                             400
                         );
@@ -611,9 +621,18 @@ $app->put(
 
             return $response
                 ->withJson(
-                    Messages::MESSAGES['tdw_put_users_209']
+                    $usuario
                 )
                 ->withStatus(209, Messages::MESSAGES['tdw_put_users_209']);
+        } else {
+            return $response
+                ->withJson(
+                    [
+                        'code' => 404,
+                        'message' => Messages::MESSAGES['tdw_put_users_404']
+                    ],
+                    404
+                );
         }
     }
 )->setName('tdw_put_users');
