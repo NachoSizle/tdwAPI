@@ -162,7 +162,6 @@ $app->get(
                 );
         }
 
-        // TODO
         $categoria = getEntityManager()
             ->getRepository(Categoria::class)
             ->findOneBy(array('idCategoria' => $args['id']));
@@ -331,9 +330,6 @@ $app->post(
                 );
         }
 
-        // hay datos -> procesarlos
-        // TODO
-
         $propDesc = $req_data['prop_descripcion'];
         $enumAvailable = $req_data['enum_disponible'];
 
@@ -412,7 +408,6 @@ $app->delete(
                 );
         }
 
-        // TODO
         $em = getEntityManager();
 
         $category = $em
@@ -521,7 +516,6 @@ $app->put(
             = $request->getParsedBody()
             ?? json_decode($request->getBody(), true);
 
-        // TODO
         $em = getEntityManager();
 
         $category = $em

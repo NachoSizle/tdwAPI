@@ -155,7 +155,6 @@ $app->get(
                 );
         }
 
-        // TODO
         $cuestion = getEntityManager()
             ->getRepository(Cuestion::class)
             ->findOneBy(array('idCuestion' => $args['id']));
@@ -239,7 +238,6 @@ $app->delete(
                 );
         }
 
-        // TODO
         $em = getEntityManager();
 
         $question = $em
@@ -419,8 +417,6 @@ $app->post(
                 );
         }
 
-        // hay datos -> procesarlos
-        // TODO
         $em = getEntityManager();
 
         $idUser = $req_data['creador'];
@@ -543,7 +539,6 @@ $app->put(
             = $request->getParsedBody()
             ?? json_decode($request->getBody(), true);
 
-        // TODO
         $em = getEntityManager();
 
         $cuestion = $em

@@ -148,7 +148,6 @@ $app->get(
                 );
         }
 
-        // TODO
         $usuario = getEntityManager()
             ->getRepository(Usuario::class)
             ->findOneBy(array('id' => $args['id']));
@@ -231,7 +230,6 @@ $app->delete(
                 );
         }
 
-        // TODO
         $em = getEntityManager();
 
         $usuario = $em
@@ -406,9 +404,6 @@ $app->post(
                 );
         }
 
-        // hay datos -> procesarlos
-        // TODO
-
         $usuario = new Usuario();
 
         $userName = $req_data['username'];
@@ -552,7 +547,6 @@ $app->put(
             = $request->getParsedBody()
             ?? json_decode($request->getBody(), true);
 
-        // TODO
         $em = getEntityManager();
 
         $usuario = $em
