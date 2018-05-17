@@ -221,6 +221,13 @@ $app->delete(
             );
 
             return $response
+                ->withJson(
+                    [
+                        'code' => 403,
+                        'message' => Messages::MESSAGES['tdw_delete_users_403']
+                    ],
+                    403
+                )
                 ->withStatus(403, Messages::MESSAGES['tdw_delete_users_403']);
         }
 
@@ -237,6 +244,13 @@ $app->delete(
 
         if (!$usuario) {
             return $response
+                ->withJson(
+                    [
+                        'code' => 404,
+                        'message' => Messages::MESSAGES['tdw_delete_users_404']
+                    ],
+                    404
+                )
                 ->withStatus(404, Messages::MESSAGES['tdw_delete_users_404']);
         }
 
@@ -402,6 +416,13 @@ $app->post(
 
         if (count($usersWithTheSameUserName) > 0) {
             return $response
+                ->withJson(
+                    [
+                        'code' => 400,
+                        'message' => Messages::MESSAGES['tdw_post_users_400']
+                    ],
+                    400
+                )
                 ->withStatus(400, Messages::MESSAGES['tdw_post_users_400']);
         }
 
@@ -411,6 +432,13 @@ $app->post(
 
         if (count($usersWithTheSameEmail) > 0) {
             return $response
+                ->withJson(
+                    [
+                        'code' => 400,
+                        'message' => Messages::MESSAGES['tdw_post_users_400']
+                    ],
+                    400
+                )
                 ->withStatus(400, Messages::MESSAGES['tdw_post_users_400']);
         }
 
@@ -536,6 +564,13 @@ $app->put(
 
                 if (count($usersWithTheSameUserName) > 0) {
                     return $response
+                        ->withJson(
+                            [
+                                'code' => 400,
+                                'message' => Messages::MESSAGES['tdw_put_users_400']
+                            ],
+                            400
+                        )
                         ->withStatus(400, Messages::MESSAGES['tdw_put_users_400']);
 
                 }
@@ -551,6 +586,13 @@ $app->put(
 
                 if (count($usersWithTheSameEmail) > 0) {
                     return $response
+                        ->withJson(
+                            [
+                                'code' => 400,
+                                'message' => Messages::MESSAGES['tdw_put_users_400']
+                            ],
+                            400
+                        )
                         ->withStatus(400, Messages::MESSAGES['tdw_put_users_400']);
                 }
 
@@ -582,6 +624,13 @@ $app->put(
                 ->withStatus(209, Messages::MESSAGES['tdw_put_users_209']);
         } else {
             return $response
+                ->withJson(
+                    [
+                        'code' => 404,
+                        'message' => Messages::MESSAGES['tdw_put_users_404']
+                    ],
+                    404
+                )
                 ->withStatus(404, Messages::MESSAGES['tdw_put_users_404']);
         }
     }
