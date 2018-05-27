@@ -97,7 +97,7 @@ $app->get(
             : $response
                 ->withJson(
                     [
-                        'categories' => $categories
+                        'categorias' => $categories
                     ],
                     200
                 );
@@ -125,7 +125,7 @@ $app->get(
  *     @SWG\Response(
  *          response    = 200,
  *          description = "Category",
- *          schema      = { "$ref": "#/definitions/Category" }
+ *          schema      = { "$ref": "#/definitions/Categoria" }
  *     ),
  *     @SWG\Response(
  *          response    = 401,
@@ -259,7 +259,7 @@ $app->options(
  *          "in":          "body",
  *          "description": "`Categories` properties to add to the system",
  *          "required":    true,
- *          "schema":      { "$ref": "#/definitions/CategoryData" }
+ *          "schema":      { "$ref": "#/definitions/CategoriaData" }
  *          }
  *     },
  *     security    = {
@@ -268,7 +268,7 @@ $app->options(
  *     @SWG\Response(
  *          response    = 201,
  *          description = "`Created` Category created",
- *          schema      = { "$ref": "#/definitions/Category" }
+ *          schema      = { "$ref": "#/definitions/Categoria" }
  *     ),
  *     @SWG\Response(
  *          response    = 400,
@@ -462,7 +462,7 @@ $app->delete(
  *          "in":          "body",
  *          "description": "`Category` data to update",
  *          "required":    true,
- *          "schema":      { "$ref": "#/definitions/CategoryData" }
+ *          "schema":      { "$ref": "#/definitions/CategoriaData" }
  *          }
  *     },
  *     security    = {
@@ -471,7 +471,7 @@ $app->delete(
  *     @SWG\Response(
  *          response    = 209,
  *          description = "`Content Returned` Category previously existed and is now updated",
- *          schema      = { "$ref": "#/definitions/Category" }
+ *          schema      = { "$ref": "#/definitions/Categoria" }
  *     ),
  *     @SWG\Response(
  *          response    = 400,

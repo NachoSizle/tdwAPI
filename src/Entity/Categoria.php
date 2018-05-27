@@ -17,10 +17,10 @@ use Doctrine\Common\Collections\Collection;
  *
  * @ORM\Entity()
  * @ORM\Table(
- *     name="categorias"
- * )
+ *     name                 = "categorias",
+ *     )
  */
-class Categoria
+class Categoria implements \JsonSerializable
 {
     /**
      * @var int $idCategoria
@@ -91,6 +91,15 @@ class Categoria
     public function getIdCategoria(): int
     {
         return $this->idCategoria;
+    }
+
+    /**
+     * @return Categoria
+     */
+    public function setIdCategoria(int $id): Categoria
+    {
+        $this->idCategoria = $id;
+        return $this;
     }
 
     /**
@@ -197,10 +206,17 @@ class Categoria
             ? '[' . implode(', ', $cod_cuestiones->getValues()) . ']'
             : '[ ]';
         return '[ categoria ' .
+            '(idCategoria=' . $this->getIdCategoria() . ', ' .
+            'prop_descripción="' . $this->getPropuestaDescripcion() . '", ' .
+            'enum_disponible="' . $this->isCorrecta() . '"' .
+            ') ]';
+    /**
+        return '[ categoria ' .
             '(id=' . $this->getIdCategoria() . ', ' .
             'prop_descripción="' . $this->getPropuestaDescripcion() . '", ' .
             'cuestiones="' . $txt_cuestiones . '"' .
             ') ]';
+     */
     }
 
     /**
@@ -219,21 +235,25 @@ class Categoria
                     return $cuestion->getIdCuestion();
                 }
             );
+
         return [
-            'cuestion' => [
-                'id' => $this->getIdCategoria(),
+            'categoria' => [
+                'idCategoria' => $this->getIdCategoria(),
                 'prop_descripcion' => $this->getPropuestaDescripcion(),
-                'categorias' => (null === $cod_cuestiones) ? null : $cod_cuestiones->toArray(),
+                'enum_disponible' => $this->isCorrecta()
             ]
         ];
+        /**
+         * 'categorias' => (null === $cod_cuestiones) ? null : $cod_cuestiones->toArray(),
+         */
     }
 }
 
 /**
- * Category definition
+ * Categoria definition
  *
  * @SWG\Definition(
- *     definition= "Category",
+ *     definition= "Categoria",
  *     required = { "idCategoria" },
  *     @SWG\Property(
  *          property    = "idCategoria",
@@ -271,10 +291,10 @@ class Categoria
  */
 
 /**
- * Category data definition
+ * Categoria data definition
  *
  * @SWG\Definition(
- *      definition = "CategoryData",
+ *      definition = "CategoriaData",
  *      @SWG\Property(
  *          property    = "idCategoria",
  *          description = "Category Id",
@@ -299,16 +319,16 @@ class Categoria
  */
 
 /**
- * Category array definition
+ * Categoria array definition
  *
  * @SWG\Definition(
  *     definition = "CategoriesArray",
  *      @SWG\Property(
- *          property    = "categories",
+ *          property    = "categorias",
  *          description = "Categories array",
  *          type        = "array",
  *          items       = {
- *              "$ref": "#/definitions/Category"
+ *              "$ref": "#/definitions/Categoria"
  *          }
  *      )
  * )

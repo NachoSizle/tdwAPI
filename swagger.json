@@ -116,7 +116,7 @@
                         "description": "`Categories` properties to add to the system",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/CategoryData"
+                            "$ref": "#/definitions/CategoriaData"
                         }
                     }
                 ],
@@ -124,7 +124,7 @@
                     "201": {
                         "description": "`Created` Category created",
                         "schema": {
-                            "$ref": "#/definitions/Category"
+                            "$ref": "#/definitions/Categoria"
                         }
                     },
                     "400": {
@@ -183,7 +183,7 @@
                     "200": {
                         "description": "Category",
                         "schema": {
-                            "$ref": "#/definitions/Category"
+                            "$ref": "#/definitions/Categoria"
                         }
                     },
                     "401": {
@@ -219,7 +219,7 @@
                         "description": "`Category` data to update",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/CategoryData"
+                            "$ref": "#/definitions/CategoriaData"
                         }
                     }
                 ],
@@ -227,7 +227,7 @@
                     "209": {
                         "description": "`Content Returned` Category previously existed and is now updated",
                         "schema": {
-                            "$ref": "#/definitions/Category"
+                            "$ref": "#/definitions/Categoria"
                         }
                     },
                     "400": {
@@ -771,7 +771,7 @@
         }
     },
     "definitions": {
-        "Category": {
+        "Categoria": {
             "required": [
                 "idCategoria"
             ],
@@ -798,7 +798,7 @@
                 }
             }
         },
-        "CategoryData": {
+        "CategoriaData": {
             "properties": {
                 "idCategoria": {
                     "description": "Category Id",
@@ -821,11 +821,11 @@
         },
         "CategoriesArray": {
             "properties": {
-                "categories": {
+                "categorias": {
                     "description": "Categories array",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/Category"
+                        "$ref": "#/definitions/Categoria"
                     }
                 }
             }

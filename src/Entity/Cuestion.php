@@ -126,6 +126,15 @@ class Cuestion implements \JsonSerializable
     }
 
     /**
+     * @return Cuestion
+     */
+    public function setIdCuestion(int $id): Cuestion
+    {
+        $this->idCuestion = $id;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getEnunciadoDescripcion(): string
@@ -189,6 +198,20 @@ class Cuestion implements \JsonSerializable
     public function getEstado(): string
     {
         return $this->estado;
+    }
+
+    /**
+     * @param bool $disponible
+     * @return Cuestion
+     */
+    public function setEstado(bool $estado): Cuestion
+    {
+        if ($estado) {
+            $this->estado = self::CUESTION_ABIERTA;
+        } else {
+            $this->estado = self::CUESTION_CERRADA;
+        }
+        return $this;
     }
 
     /**
