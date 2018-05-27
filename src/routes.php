@@ -126,7 +126,10 @@ $app->post(
         );
 
         return $response
-            ->withJson([ 'X-Token' => $json_web_token ])
+            ->withJson([
+                'X-Token' => $json_web_token,
+                'User' => $user
+                ])
             ->withAddedHeader('X-Token', $json_web_token);
     }
 )->setName('tdw_post_login');
