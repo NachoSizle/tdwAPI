@@ -78,7 +78,7 @@ $app->get(
             ['uid' => $this->jwt->user_id, 'status' => $cuestiones ? 200 : 404]
         );
 
-        return empty(cuestiones)
+        return empty($cuestiones)
             ? $response
                 ->withJson(
                     [
@@ -180,7 +180,6 @@ $app->get(
                 );
     }
 )->setName('tdw_get_questions');
-
 
 /**
  * Summary: Deletes a question

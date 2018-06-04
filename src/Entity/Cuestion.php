@@ -88,25 +88,19 @@ class Cuestion implements \JsonSerializable
     protected $estado = Cuestion::CUESTION_CERRADA;
 
     /**
-     * @var Collection|Categoria[]
-     *
-     * @ORM\ManyToMany(targetEntity="Categoria", mappedBy="cuestiones")
-     * @ORM\OrderBy({ "idCategoria" = "ASC" })
-     */
-    protected $categorias;
-
-    /**
      * Cuestion constructor.
      *
      * @param string|null $enunciadoDescripcion
      * @param Usuario|null $creador
      * @param bool $enunciadoDisponible
+     * @param int $idSolucion
      * @throws \Doctrine\Common\CommonException
      */
     public function __construct(
         ?string $enunciadoDescripcion = '',
         ?Usuario $creador = null,
-        bool $enunciadoDisponible = false
+        bool $enunciadoDisponible = false,
+        int $idSolucion = 0
     ) {
         $this->enunciadoDescripcion = $enunciadoDescripcion;
         (null !== $creador)
@@ -114,7 +108,6 @@ class Cuestion implements \JsonSerializable
             : null;
         $this->enunciadoDisponible = $enunciadoDisponible;
         $this->estado = self::CUESTION_CERRADA;
-        $this->categorias = new ArrayCollection();
     }
 
     /**
@@ -233,14 +226,6 @@ class Cuestion implements \JsonSerializable
     }
 
     /**
-     * @return Collection|null
-     */
-    public function getCategorias(): ?Collection
-    {
-        return $this->categorias;
-    }
-
-    /**
      * The __toString method allows a class to decide how it will react when it is converted to a string.
      *
      * @return string
@@ -248,23 +233,12 @@ class Cuestion implements \JsonSerializable
      */
     public function __toString()
     {
-        $cod_categorias = (null === $this->getCategorias())
-            ? null
-            : $this->getCategorias()->map(
-                function (Categoria $categoria) {
-                    return $categoria->getIdCategoria();
-                }
-            );
-        $txt_categorias = $cod_categorias
-            ? '[' . implode(', ', $cod_categorias->getValues()) . ']'
-            : '[ ]';
         return '[ cuestion ' .
-            '(id=' . $this->getIdCuestion() . ', ' .
+            '(idCuestion=' . $this->getIdCuestion() . ', ' .
             'enum_descripción="' . $this->getEnunciadoDescripcion() . '", ' .
             'enum_disponible=' . ($this->isEnunciadoDisponible() ? '1' : '0') . ', ' .
             'creador=' . ($this->getCreador() ?? '[ - ]') . ', ' .
             'estado="' . $this->getEstado() . '" ' .
-            'categorias=' . $txt_categorias .
             ') ]';
     }
 
@@ -277,13 +251,6 @@ class Cuestion implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $cod_categorias = (null === $this->getCategorias())
-            ? null
-            : $this->getCategorias()->map(
-                function (Categoria $plan) {
-                    return $plan->getIdCategoria();
-                }
-            );
         return [
             'cuestion' => [
                 'idCuestion' => $this->getIdCuestion(),
@@ -291,7 +258,6 @@ class Cuestion implements \JsonSerializable
                 'enum_disponible' => $this->isEnunciadoDisponible(),
                 'creador' => $this->getCreador(),
                 'estado' => $this->getEstado(),
-                'categorias' => (null === $cod_categorias) ? null : $cod_categorias->toArray(),
             ]
         ];
     }
@@ -330,11 +296,6 @@ class Cuestion implements \JsonSerializable
  *          description = "State",
  *          type        = "string"
  *      ),
- *      @SWG\Property(
- *          property    = "categorias",
- *          description = "Categories",
- *          type        = "[Categoria]"
- *      ),
  *      example = {
  *          "cuestion" = {
  *              "idCuestion"       = 1508,
@@ -342,7 +303,6 @@ class Cuestion implements \JsonSerializable
  *              "enum_disponible"    = true,
  *              "creador"  = "User",
  *              "estado"  = "Disponible",
- *              "categorias"    = "[Categoria]"
  *          }
  *     }
  * )
@@ -355,6 +315,7 @@ class Cuestion implements \JsonSerializable
  *      type        = "integer",
  *      format      = "int32"
  * )
+ *
  */
 
 /**

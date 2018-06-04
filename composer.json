@@ -44,7 +44,7 @@
     "scripts": {
         "pre-install-cmd": "TDW18\\Usuarios\\Install::preInstall",
         "post-install-cmd": "TDW18\\Usuarios\\Install::postInstall",
-        "start": "php -S 127.0.0.1:8080 -t public",
+        "start": "php -S localhost:8080 -t public",
         "test": "./bin/phpunit"
     }
 }

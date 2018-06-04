@@ -84,36 +84,69 @@ class Messages
         'tdw_put_questions_404'
         => 'Resource not found',
 
-        // categories
-        'tdw_post_category_201'
-        => 'Category created',
-        'tdw_delete_categories_204'
-        => 'Category deleted',
-        'tdw_put_categories_209'
-        => 'Category previously existed and is now updated',
-        'tdw_cget_categories_403'
+        // solutions
+        'tdw_post_solution_201'
+        => 'Solution created',
+        'tdw_delete_solutions_204'
+        => 'Solution deleted',
+        'tdw_put_solutions_209'
+        => 'Solution previously existed and is now updated',
+        'tdw_cget_solutions_403'
         => '`Forbidden` You don\'t have permission to access',
-        'tdw_cget_categories_404'
-        => 'Category object not found',
-        'tdw_get_categories_403'
+        'tdw_cget_solutions_404'
+        => 'Solution object not found',
+        'tdw_get_solutions_403'
         => '`Forbidden` You don\'t have permission to access',
-        'tdw_get_categories_404'
+        'tdw_get_solutions_404'
         => 'Resource not found',
-        'tdw_delete_categories_403'
+        'tdw_delete_solutions_403'
         => '`Forbidden` You don\'t have permission to access',
-        'tdw_delete_categories_404'
+        'tdw_delete_solutions_404'
         => 'Resource not found',
-        'tdw_post_categories_400'
-        => 'Category with this name already exists.',
-        'tdw_post_categories_403'
+        'tdw_post_solutions_400'
+        => 'Solution already exists.',
+        'tdw_post_solutions_403'
         => '`Forbidden` You don\'t have permission to access',
-        'tdw_post_categories_422'
-        => '`Unprocessable entity` Category name is left out',
-        'tdw_put_categories_400'
-        => '`Bad Request` Category name already exists',
-        'tdw_put_categories_403'
+        'tdw_post_solutions_422'
+        => '`Unprocessable entity`',
+        'tdw_put_solutions_400'
+        => '`Bad Request` Solution already exists',
+        'tdw_put_solutions_403'
         => '`Forbidden` You don\'t have permission to access',
-        'tdw_put_categories_404'
-        => 'Resource not found'
+        'tdw_put_solutions_404'
+        => 'Resource not found',
+
+        // rationings
+        'tdw_post_rationings_201'
+        => 'Rationing created',
+        'tdw_delete_rationings_204'
+        => 'Rationing deleted',
+        'tdw_put_rationings_209'
+        => 'Rationing previously existed and is now updated',
+        'tdw_cget_rationings_403'
+        => '`Forbidden` You don\'t have permission to access',
+        'tdw_cget_rationings_404'
+        => 'Rationing object not found',
+        'tdw_get_rationings_403'
+        => '`Forbidden` You don\'t have permission to access',
+        'tdw_get_rationings_404'
+        => 'Resource not found',
+        'tdw_delete_rationings_403'
+        => '`Forbidden` You don\'t have permission to access',
+        'tdw_delete_rationings_404'
+        => 'Resource not found',
+        'tdw_post_rationings_400'
+        => 'Rationing already exists.',
+        'tdw_post_rationings_403'
+        => '`Forbidden` You don\'t have permission to access',
+        'tdw_post_rationings_422'
+        => '`Unprocessable entity`',
+        'tdw_put_rationings_400'
+        => '`Bad Request` Rationing already exists',
+        'tdw_put_rationings_403'
+        => '`Forbidden` You don\'t have permission to access',
+        'tdw_put_rationings_404'
+        => 'Resource not found',
+
     ];
 }

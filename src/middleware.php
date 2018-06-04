@@ -18,7 +18,7 @@ $app->add(
         /** @var Slim\Route $route */
         $route = $request->getAttribute('route');
 
-        $methods = [];
+        $methods = ['PUT'];
 
         if (null !== $route) {
             $pattern = $route->getPattern();
@@ -43,7 +43,7 @@ $app->add(
             )
             ->withAddedHeader(
                 'Access-Control-Allow-Headers',
-                'X-Requested-With, Content-Type, Accept, Origin, Authorization'
+                '*, X-Token'
             )
             ->withAddedHeader(
                 'Access-Control-Allow-Methods',
