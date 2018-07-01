@@ -53,22 +53,6 @@ use TDW18\Usuarios\Messages;
 $app->get(
     $_ENV['RUTA_API'] . '/questions',
     function (Request $request, Response $response): Response {
-        if (!$this->jwt->isAdmin) {
-            $this->logger->info(
-                $request->getMethod() . ' ' . $request->getUri()->getPath(),
-                ['uid' => $this->jwt->user_id, 'status' => 403]
-            );
-
-            return $response
-                ->withJson(
-                    [
-                        'code'      => 403,
-                        'message'   => Messages::MESSAGES['tdw_cget_questions_403']
-                    ],
-                    403
-                );
-        }
-
         $cuestiones = getEntityManager()
             ->getRepository(Cuestion::class)
             ->findAll();

@@ -86,11 +86,16 @@ $app->get(
  */
 /** @noinspection PhpUnusedParameterInspection */
 $app->post(
+/**
+ * @param Request $request
+ * @param Response $response
+ * @return Response
+ */
     $_ENV['RUTA_LOGIN'],
     function (Request $request, Response $response): Response {
-        $req_data
-            = $request->getParsedBody()
-            ?? json_decode($request->getBody(), true);
+
+        $req_data = $request->getParsedBody()
+                ?? json_decode($request->getBody(), true);
 
         /** @var TDW18\Usuarios\Entity\Usuario $user */
         $user = null;
@@ -110,7 +115,7 @@ $app->post(
                 ->withJson(
                     [
                         'code' => 404,
-                        'message' => Messages::MESSAGES['tdw_post_login_404']
+                        'message' => $req_data
                     ],
                     404
                 );

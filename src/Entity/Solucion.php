@@ -102,23 +102,39 @@ class Solucion implements \JsonSerializable
     private $proposedSolution;
 
     /**
+     * Is Good solution
+     *
+     * @var string
+     *
+     * @ORM\Column(
+     *     name     = "isGood",
+     *     type     = "boolean",
+     *     options  = { "default" = false },
+     *     unique   = false
+     *     )
+     */
+    private $isGood;
+
+    /**
      * Solution constructor.
      *
      * @param string $student username
      * @param string $questionTitle questionTitle
      * @param string $proposedSolution proposedSolution
      */
+
     public function __construct(
         string $student = '',
         string $questionTitle = '',
-        string $proposedSolution = ''
-
+        string $proposedSolution = '',
+        bool $isGood = false
     ) {
         $this->idAnswer          = 0;
         $this->idQuestion        = 0;
-        $this->student          = $student;
+        $this->student           = $student;
         $this->questionTitle     = $questionTitle;
         $this->proposedSolution  = $proposedSolution;
+        $this->isGood            = $isGood;
     }
 
     /**
@@ -200,6 +216,29 @@ class Solucion implements \JsonSerializable
     }
 
     /**
+     * Get isGood
+     *
+     * @return boolean
+     */
+    public function getIsGood(): bool
+    {
+        return $this->questionTitle;
+    }
+
+    /**
+     * Set isGood
+     *
+     * @param bool $isGood isGood
+     *
+     * @return Solucion
+     */
+    public function setIsGood(bool $isGood): Solucion
+    {
+        $this->isGood= $isGood;
+        return $this;
+    }
+
+    /**
      * Get proposedSolution
      *
      * @return string
@@ -237,6 +276,7 @@ class Solucion implements \JsonSerializable
             'student="' . $this->getStudent() . '", ' .
             'questionTitle="' . $this->getQuestionTitle() . '", ' .
             'proposedSolution="' . $this->getProposedSolution() . '", ' .
+            'isGood="' . $this->getIsGood() . '", ' .
             ') ]';
     }
 
@@ -256,6 +296,7 @@ class Solucion implements \JsonSerializable
                 'student' => $this->getStudent(),
                 'questionTitle' => $this->getQuestionTitle(),
                 'proposedSolution' => $this->getProposedSolution(),
+                'isGood' => $this->getIsGood()
             ]
         ];
     }
@@ -290,6 +331,11 @@ class Solucion implements \JsonSerializable
  *          type        = "string"
  *      ),
  *     @SWG\Property(
+ *          property    = "isGood",
+ *          description = "Is good solution",
+ *          type        = "boolean"
+ *      ),
+ *     @SWG\Property(
  *          property    = "proposedSolution",
  *          description = "Proposed solution",
  *          type        = "string"
@@ -298,9 +344,10 @@ class Solucion implements \JsonSerializable
  *          "answer" = {
  *              "idAnswer"          = 1508,
  *              "idQuestion"        = 1508,
- *              "student"          = "User name",
+ *              "student"           = "User name",
  *              "questionTitle"     = "¿Que es el software?",
- *              "proposedSolution"  = "Es lo mejor del mundo"
+ *              "proposedSolution"  = "Es lo mejor del mundo",
+ *              "isGood"            = true
  *          }
  *     }
  * )
@@ -340,11 +387,17 @@ class Solucion implements \JsonSerializable
  *          description = "Proposed solution",
  *          type        = "string",
  *      ),
+ *     @SWG\Property(
+ *          property    = "isGood",
+ *          description = "Is good solution",
+ *          type        = "boolean",
+ *      ),
  *      example = {
- *          "idQuestion" = 1,
- *          "student"  = "username",
+ *          "idQuestion"        = 1,
+ *          "student"           = "username",
  *          "questionTitle"     = "¿Que es el software?",
- *          "proposedSolution"  = "Es lo mejor del mundo"
+ *          "proposedSolution"  = "Es lo mejor del mundo",
+*           "isGood"            = true
  *      }
  * )
  */
