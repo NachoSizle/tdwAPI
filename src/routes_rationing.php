@@ -353,23 +353,6 @@ $app->options(
 $app->post(
     $_ENV['RUTA_API'] . '/rationings',
     function (Request $request, Response $response): Response {
-
-        if (!$this->jwt->isAdmin) {
-            $this->logger->info(
-                $request->getMethod() . ' ' . $request->getUri()->getPath(),
-                [ 'uid' => $this->jwt->user_id, 'status' => 403 ]
-            );
-
-            return $response
-                ->withJson(
-                    [
-                        'code'      => 403,
-                        'message'   => Messages::MESSAGES['tdw_post_rationings_403']
-                    ],
-                    403
-                );
-        }
-
         $req_data
             = $request->getParsedBody()
             ?? json_decode($request->getBody(), true);
