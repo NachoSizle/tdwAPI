@@ -564,6 +564,12 @@ $app->put(
                 $solucion->setProposedSolution($proposedSolutionUpdate);
             }
 
+            if (isset($req_data['isGood'])) {
+                $isGoodUpdate = $req_data['isGood'];
+
+                $solucion->setIsGood($isGoodUpdate);
+            }
+
             if(isset($req_data['answers'])) {
                 $solucion->addAnswer($req_data['answers']);
             }
