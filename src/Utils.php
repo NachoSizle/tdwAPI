@@ -53,13 +53,17 @@ trait Utils
      */
     public static function loadUserData(
         string $username,
+        string $lastname,
+        string $phone,
         string $email,
         string $password,
         bool $isAdmin = false
     ) {
         $user = new Usuario(
             $username,
+            $lastname,
             $email,
+            $phone,
             $password,
             true,
             $isAdmin,

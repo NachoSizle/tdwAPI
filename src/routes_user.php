@@ -599,6 +599,14 @@ $app->put(
                 $usuario->setEmail($emailUpdate);
             }
 
+            if (isset($req_data['phone'])) {
+                $usuario->setPhone($req_data['phone']);
+            }
+
+            if (isset($req_data['lastname'])) {
+                $usuario->setLastname($req_data['lastname']);
+            }
+
             if (isset($req_data['password'])) {
                 $usuario->setPassword($req_data['password']);
             }

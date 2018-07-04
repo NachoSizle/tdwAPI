@@ -60,6 +60,21 @@ class Usuario implements \JsonSerializable
     private $username;
 
     /**
+     * Lastname
+     *
+     * @var string
+     *
+     * @ORM\Column(
+     *     name     = "lastname",
+     *     type     = "string",
+     *     length   = 32,
+     *     nullable = false,
+     *     unique   = true
+     *     )
+     */
+    private $lastname;
+
+    /**
      * Email
      *
      * @var string
@@ -73,6 +88,21 @@ class Usuario implements \JsonSerializable
      *     )
      */
     private $email;
+
+    /**
+     * Phone
+     *
+     * @var string
+     *
+     * @ORM\Column(
+     *     name     = "phone",
+     *     type     = "string",
+     *     length   = 60,
+     *     nullable = false,
+     *     unique   = true
+     *     )
+     */
+    private $phone;
 
     /**
      * Enabled
@@ -140,7 +170,9 @@ class Usuario implements \JsonSerializable
      * User constructor.
      *
      * @param string $username username
+     * @param string $lastname lastname
      * @param string $email email
+     * @param string $phone phone
      * @param string $password password
      * @param bool $enabled enabled
      * @param bool $isMaestro isMaestro
@@ -148,20 +180,24 @@ class Usuario implements \JsonSerializable
      */
     public function __construct(
         string $username = '',
+        string $lastname = '',
         string $email = '',
+        string $phone = '',
         string $password = '',
         bool   $enabled = true,
         bool   $isMaestro = false,
         bool   $isAdmin = false
     ) {
-        $this->id       = 0;
-        $this->username = $username;
-        $this->email    = $email;
+        $this->id                      = 0;
+        $this->username                = $username;
+        $this->lastname                = $lastname;
+        $this->email                   = $email;
+        $this->phone                   = $phone;
         $this->setPassword($password);
-        $this->enabled  = $enabled;
-        $this->isMaestro = $isMaestro;
-        $this->isAdmin  = $isAdmin;
-        $this->cuestiones = new ArrayCollection();
+        $this->enabled                 = $enabled;
+        $this->isMaestro               = $isMaestro;
+        $this->isAdmin                 = $isAdmin;
+        $this->cuestiones              = new ArrayCollection();
     }
 
     /**
@@ -198,6 +234,29 @@ class Usuario implements \JsonSerializable
     }
 
     /**
+     * Get lastname
+     *
+     * @return string
+     */
+    public function getLastname(): string
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Set lastname
+     *
+     * @param string $lastname lastname
+     *
+     * @return Usuario
+     */
+    public function setLastname(string $lastname): Usuario
+    {
+        $this->lastname = $lastname;
+        return $this;
+    }
+
+    /**
      * Get email
      *
      * @return string
@@ -217,6 +276,29 @@ class Usuario implements \JsonSerializable
     public function setEmail(string $email): Usuario
     {
         $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string
+     */
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone phone
+     *
+     * @return Usuario
+     */
+    public function setPhone(string $phone): Usuario
+    {
+        $this->phone = $phone;
         return $this;
     }
 
@@ -346,7 +428,9 @@ class Usuario implements \JsonSerializable
         return '[ usuario ' .
             '(id=' . $this->getId() . ', ' .
             'username="' . $this->getUsername() . '", ' .
+            'lastname="' . $this->getLastname() . '", ' .
             'email="' . $this->getEmail() . '", ' .
+            'phone="' . $this->getPhone() . '", ' .
             'enabled="' . ($this->isEnabled() ? '1' : '0') . '", ' .
             'isMaestro="' . ($this->isMaestro() ? '1' : '0') . '", ' .
             'isAdmin="' . ($this->isAdmin() ? '1' : '0') . '", ' .
@@ -372,7 +456,9 @@ class Usuario implements \JsonSerializable
             'usuario' => [
                 'id' => $this->getId(),
                 'username' => $this->getUsername(),
+                'lastname' => $this->getLastname(),
                 'email' => $this->getEmail(),
+                'phone' => $this->getPhone(),
                 'enabled' => $this->isEnabled(),
                 'maestro' => $this->isMaestro(),
                 'admin' => $this->isAdmin(),
@@ -399,9 +485,19 @@ class Usuario implements \JsonSerializable
  *          description = "User name",
  *          type        = "string"
  *      ),
+ *     @SWG\Property(
+ *          property    = "lastname",
+ *          description = "User lastname",
+ *          type        = "string"
+ *      ),
  *      @SWG\Property(
  *          property    = "email",
  *          description = "User email",
+ *          type        = "string"
+ *      ),
+ *     @SWG\Property(
+ *          property    = "phone",
+ *          description = "User phone",
  *          type        = "string"
  *      ),
  *      @SWG\Property(
@@ -423,7 +519,9 @@ class Usuario implements \JsonSerializable
  *          "usuario" = {
  *              "id"       = 1508,
  *              "username" = "User name",
+ *              "lastname" = "User lastname",
  *              "email"    = "User email",
+*               "phone"    = "666666666",
  *              "enabled"  = true,
  *              "maestro"  = false,
  *              "admin"    = false
@@ -451,9 +549,19 @@ class Usuario implements \JsonSerializable
  *          description = "User name",
  *          type        = "string"
  *      ),
+ *     @SWG\Property(
+ *          property    = "lastname",
+ *          description = "User lastname",
+ *          type        = "string"
+ *      ),
  *      @SWG\Property(
  *          property    = "email",
  *          description = "User email",
+ *          type        = "string"
+ *      ),
+ *      @SWG\Property(
+ *          property    = "phone",
+ *          description = "User phone",
  *          type        = "string"
  *      ),
  *      @SWG\Property(
@@ -479,7 +587,9 @@ class Usuario implements \JsonSerializable
  *      ),
  *      example = {
  *          "username"  = "User_name",
+ *          "lastname"  = "User_lastname",
  *          "email"     = "User_email@example.com",
+ *          "phone"     = "666666666",
  *          "password"  = "User_password",
  *          "enabled"   = true,
  *          "isMaestro" = false,

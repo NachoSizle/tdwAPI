@@ -58,6 +58,7 @@ class Install
                 'DATABASE_PASSWD',
                 'DATABASE_DRIVER',
                 'ADMIN_USER_NAME',
+                'ADMIN_USER_PHONE',
                 'ADMIN_USER_EMAIL',
                 'ADMIN_USER_PASSWD'
             ]
@@ -69,6 +70,8 @@ class Install
 
         self::loadUserData(
             $_ENV['ADMIN_USER_NAME'],
+            $_ENV['ADMIN_USER_NAME'],
+            $_ENV['ADMIN_USER_PHONE'],
             $_ENV['ADMIN_USER_EMAIL'],
             $_ENV['ADMIN_USER_PASSWD'],
             true
